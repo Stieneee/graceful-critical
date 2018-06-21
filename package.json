@@ -1,0 +1,53 @@
+{
+  "name": "graceful-critical",
+  "version": "0.0.0",
+  "description": "Gracefully handle SIGTERM and SIGINT around critical sections code. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stieneee/graceful-critical.git"
+  },
+  "keywords": [
+    "graceful",
+    "gracefully",
+    "sigterm",
+    "sigint",
+    "pm2",
+    "critical",
+    "lock",
+    "handle"
+  ],
+  "author": "Tyler Stiene",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Stieneee/graceful-critical/issues"
+  },
+  "homepage": "https://github.com/Stieneee/graceful-critical#readme",
+  "eslintIgnore": [
+    "/coverage",
+    "/node_modules"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "max-len": "off"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-import-resolver-node": "^0.3.2",
+    "eslint-plugin-import": "^2.12.0"
+  }
+}
