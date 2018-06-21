@@ -35,15 +35,14 @@ crtical.enter((err, exit) => {
   //CRITCAL SECTION////
   /////////////////////
 
-  exit(); // pass this down your call back dolphin if you have one...
-})
+  exit(); // pass this down your callback chain.
 ```
 
 ## Usage - Promise
 
 ```javascript
 async function () {
-  let exit
+  let exit;
   try {
     exit = await crtical.enter();
 
@@ -51,6 +50,7 @@ async function () {
     //CRITCAL SECTION////
     /////////////////////
 
+    exit();
   } catch (err) {
     if (err) // if crtical.enter() throws an error the process is shuting down
     if (typeof exit === 'function') exit(); // remeber to always exit even if you critcal section throws and error.
