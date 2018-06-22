@@ -8,7 +8,7 @@ let exitCallCount = 0;
 
 
 function exitTimeoutReached() {
-  console.error('Exit timeout reached. Forcing exit');
+  console.error('Exit timeout reached. Forcing exit.');
   process.exit(10);
 }
 
@@ -30,6 +30,7 @@ function sigHandle() {
     exitCallCount += 1;
     if (exitCallCount >= exitPanicLimit) {
       console.log('Panic limited reached. Exiting');
+      process.exit(11);
     } else {
       console.log('Panic count ', exitCallCount, ' of ', exitPanicLimit);
     }
@@ -42,7 +43,7 @@ function sigHandle() {
   exitCalled = true;
   exitCallCount += 1;
   if (numLocks > 0) {
-    console.log('Waiting on critcal section locks...');
+    console.log('Waiting on critcal sections...');
   } else {
     finishExit();
   }
@@ -56,6 +57,7 @@ class EXIT {
   exit() {
     if (!this.called) {
       this.called = true;
+      numLocks -= 1;
       if (numLocks === 0) finishExit();
     }
   }
@@ -78,8 +80,10 @@ module.exports.setExitCallback = async function setExitCallback(cb) {
 };
 
 module.exports.enter = async function enter(cb) {
-  const lockExit = new EXIT().exit;
-  numLocks += 1;
+  const exitHandler = new EXIT();
+  const lockExit = () => {
+    exitHandler.exit();
+  };
 
   if (exitCalled) {
     if (typeof cb === 'function') {
@@ -87,6 +91,8 @@ module.exports.enter = async function enter(cb) {
     }
     throw new Error('process is attempting to exit');
   }
+
+  numLocks += 1;
 
   if (typeof cb === 'function') {
     cb(null, lockExit);
