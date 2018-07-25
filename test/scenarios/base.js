@@ -1,7 +1,7 @@
 const critical = require('../../index');
 
 // keep the applcaiton alive
-const keepAlive = setTimeout(() => { // eslint-disable-line
+const keepAlive = setTimeout(() => {
   console.log('time to die');
 }, 5000000);
 
@@ -16,5 +16,5 @@ critical.enter((err, exit) => {
   timeout = setTimeout(() => {
     console.log('exited critical');
     exit();
-  }, 2000);
+  }, 500);
 });

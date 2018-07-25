@@ -1,6 +1,27 @@
 const { spawn } = require('child_process');
 
 describe('Test Scenarios', () => {
+  describe('base case - only exit process when signaled', () => {
+    it('should exit only after the signal code 0', (done) => {
+      const p = spawn('node', ['./test/scenarios/base.js'], {
+        stdio: 'pipe',
+      });
+      let failed = true;
+      setTimeout(() => {
+        failed = false;
+        p.kill('SIGTERM');
+      }, 1500);
+
+      p.on('exit', (code) => {
+        if (code === 0 && !failed) {
+          done();
+        } else {
+          throw new Error(`test failed ${code} ${failed}`);
+        }
+      });
+    });
+  });
+
   describe('shutdown during critical section', () => {
     it('SIGINT should wait for critcal section, exit code 0', (done) => {
       const p = spawn('node', ['./test/scenarios/wait-for-critical.js'], {

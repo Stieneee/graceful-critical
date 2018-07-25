@@ -58,7 +58,7 @@ class EXIT {
     if (!this.called) {
       this.called = true;
       numLocks -= 1;
-      if (numLocks === 0) finishExit();
+      if (numLocks === 0 && exitCalled) finishExit();
     }
   }
 }
