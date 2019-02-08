@@ -16,10 +16,10 @@ const critical = require('graceful-critical');
 
 ```javascript
 // Set the timeout milliseonds before process exit is forced.
-critical.setExitTimeout(1000);
+critical.setExitTimeout(1000); // default 5
 
-// Set the number of panic count limit for consecutive ctrl-c calls before exit is forced/
-critical.setPanicLimit(5);
+// Set the number of panic count limit for consecutive ctrl-c calls before exit is forced.
+critical.setPanicLimit(5); // default 5
 
 critical.setExitCallback((processExit) => {
   // this will be called after all cirtical sections have exited.

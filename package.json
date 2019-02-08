@@ -1,7 +1,7 @@
 {
   "name": "graceful-critical",
   "version": "0.1.1",
-  "description": "Gracefully handle SIGTERM and SIGINT around critical sections code. ",
+  "description": "Gracefully handle SIGTERM and SIGINT around critical sections. ",
   "main": "index.js",
   "scripts": {
     "lint": "npx eslint .",
@@ -21,7 +21,7 @@
     "lock",
     "handle"
   ],
-  "author": "Tyler Stiene",
+  "author": "Tyler Stiene <tystiene@gmail.com> (https://tylerstiene.ca)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Stieneee/graceful-critical/issues"
