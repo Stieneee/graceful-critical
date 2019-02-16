@@ -39,7 +39,7 @@ function sigHandle() {
 
   // First exit call
   console.log('Attempting graceful shutdown.');
-  setTimeout(exitTimeoutReached, exitTimeout);
+  if (exitTimeout > 0) setTimeout(exitTimeoutReached, exitTimeout);
   exitCalled = true;
   exitCallCount += 1;
   if (numLocks > 0) {
@@ -67,19 +67,19 @@ process.on('SIGTERM', sigHandle);
 
 process.on('SIGINT', sigHandle);
 
-module.exports.setExitTimeout = async function setExitTimeout(timeMS) {
+module.exports.setExitTimeout = function setExitTimeout(timeMS) {
   exitTimeout = timeMS;
 };
 
-module.exports.setPanicLimit = async function setExitPanicLimit(count) {
+module.exports.setPanicLimit = function setExitPanicLimit(count) {
   exitPanicLimit = count;
 };
 
-module.exports.setExitCallback = async function setExitCallback(cb) {
+module.exports.setExitCallback = function setExitCallback(cb) {
   exitCB = cb;
 };
 
-module.exports.enter = async function enter(cb) {
+module.exports.enter = function enter(cb) {
   const exitHandler = new EXIT();
   const lockExit = () => {
     exitHandler.exit();
@@ -87,7 +87,7 @@ module.exports.enter = async function enter(cb) {
 
   if (exitCalled) {
     if (typeof cb === 'function') {
-      cb(new Error('process is attempting to exit'));
+      return cb(new Error('process is attempting to exit'));
     }
     throw new Error('process is attempting to exit');
   }
@@ -95,7 +95,7 @@ module.exports.enter = async function enter(cb) {
   numLocks += 1;
 
   if (typeof cb === 'function') {
-    cb(null, lockExit);
+    return cb(null, lockExit);
   }
   return lockExit;
 };
