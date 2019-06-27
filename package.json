@@ -1,6 +1,6 @@
 {
   "name": "graceful-critical",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Gracefully handle SIGTERM and SIGINT around critical sections. ",
   "main": "index.js",
   "scripts": {
