@@ -1,5 +1,5 @@
-let exitTimeout = 1000; // Setable by user
-let exitPanicLimit = 5; // Setable by user
+let exitTimeout = 1000; // Settable by user
+let exitPanicLimit = 5; // Settable by user
 
 let numLocks = 0;
 let exitCB;
@@ -43,7 +43,7 @@ function sigHandle() {
   exitCalled = true;
   exitCallCount += 1;
   if (numLocks > 0) {
-    console.log('Waiting on critcal sections...');
+    console.log('Waiting on critical sections...');
   } else {
     finishExit();
   }
@@ -66,6 +66,8 @@ class EXIT {
 process.on('SIGTERM', sigHandle);
 
 process.on('SIGINT', sigHandle);
+
+process.on('SIGHUP', sigHandle);
 
 module.exports.setExitTimeout = function setExitTimeout(timeMS) {
   exitTimeout = timeMS;
