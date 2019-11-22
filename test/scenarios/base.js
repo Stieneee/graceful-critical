@@ -1,7 +1,7 @@
 const critical = require('../../index');
 
 // keep the applcaiton alive
-const keepAlive = setTimeout(() => {
+setTimeout(() => {
   console.log('time to die');
 }, 5000000);
 
